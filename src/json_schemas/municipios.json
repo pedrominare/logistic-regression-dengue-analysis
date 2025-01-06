@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "tipo_renda": {
+        "type": "string"
+      },
+      "descricao_renda": {
+        "type": "string"
+      },
+      "municipio": {
+        "type": "string"
+      },
+      "classes_renda": {
+        "type": "object"
+      }
+    },
+    "required": ["tipo_renda", "descricao_renda", "municipio", "classes_renda"]
+  }
+}
