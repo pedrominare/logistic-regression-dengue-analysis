@@ -1,2 +1,7 @@
 pandas
 jsonschema
+memory_monitor
+seaborn
+matplotlib
+sklearn
+numpy

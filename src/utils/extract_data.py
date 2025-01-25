@@ -2,10 +2,16 @@ import pandas as pd
 from pandas import DataFrame
 import unicodedata
 
-from src.data.build_df import BuildDF
+from src.data.build_df import BuildDf
 
 
 def normalizar_string(text):
+    try:
+        if int(text):
+            numero = pd.to_numeric(text.replace(" ", ""), errors='coerce')
+            return numero
+    except Exception as error:
+        raise Exception(f"Erro ao tirar espaços em branco do numero {text}! {error}")
     try:
         return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn').lower()
     except Exception as error:
