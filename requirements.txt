@@ -1,7 +1,11 @@
 pandas
 jsonschema
 memory_monitor
+numpy
+requests
+tensorflow
+imblearn
 seaborn
 matplotlib
 sklearn
-numpy
+import unidecode

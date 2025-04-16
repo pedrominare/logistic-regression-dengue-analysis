@@ -20,7 +20,7 @@ import seaborn as sns
 
 class LogisticRegressionHandler:
     def __init__(self, test_size, random_state):
-        self.dependent_variable = "DENGUE"
+        self.dependent_variable = "CONTAMINACAO_INDICE"
         self.independent_variables = None
         self.test_size = test_size
         self.random_state = random_state
@@ -30,7 +30,7 @@ class LogisticRegressionHandler:
         variaveis = df_concatenado.columns.tolist()
 
         variaveis_independentes = variaveis.copy()
-        variaveis_independentes.remove('DENGUE')
+        variaveis_independentes.remove('MEDIA_PONDERADA_INDICE')
 
         X = df_concatenado[variaveis_independentes]
         y = df_concatenado[self.dependent_variable]
