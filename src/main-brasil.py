@@ -20,7 +20,7 @@ def main():
     obj_memory_usage = MemoryMonitor()
     obj_memory_usage.add_checkpoint(name="Codigo iniciado!")
 
-    """
+
     # arquivos XLSX com datasets
     xlsx_casos_dengue = os.path.join(os.getcwd(), "brasil-inteiro", "DENGUE_BRASIL_CONTAMINADOS.xlsx")
     xlsx_municipios = os.path.join(os.getcwd(), "brasil-inteiro", "DATA-SET-2010_DADOS-SALVOS.xlsx")
@@ -29,37 +29,29 @@ def main():
         xlsx_name=xlsx_casos_dengue, logging=logging, memory_usage=obj_memory_usage, ano="2010"
     )
     obj_dengue.build_df(tipo="dengue")
-    """
 
-    """
     obj_municipios = DfHandler(
         xlsx_name=xlsx_municipios, logging=logging, memory_usage=obj_memory_usage, skiprows=2
     )
 
     obj_municipios.build_df(tipo="municipio")
     obj_municipios.cria_lista_df_municipios_otimizado(municipios_brasil_com_ou_sem_dengue)
-    """
 
-    """
-    # df dos municipios ja no csv
     obj_municipios = DfHandler(
         xlsx_name=xlsx_municipios, logging=logging, memory_usage=obj_memory_usage, skiprows=2
     )
     obj_municipios.municipios_concatenados = pd.read_csv('data-set-completo-municipios-brasil-todos-municipios.csv', encoding='latin-1', sep=';')
 
-    # df_somatorio_dengue = obj_dengue.agrupa_casos_dengue_brasil_inteiro()
+    df_somatorio_dengue = obj_dengue.agrupa_casos_dengue_brasil_inteiro()
 
     df_data_set = obj_municipios.agrupa_casos_dengue_com_municipios_brasil_todo(obj_dengue)
-    """
 
-    """
     # obtem dados da populacao de cada municipio
     obj_web_scraping_municipios_brasil = WebScraping()
     
     # o codigo do estado de goias eh 52
     df_populacao_municipios_brasil = obj_web_scraping_municipios_brasil.obtem_populacao_estado()
     df_populacao_municipios_brasil.to_csv('data-set-populacao-total-municipios-brasil.csv', index=False, encoding='latin-1', sep=';')
-    """
 
     df_data_set = pd.read_csv('data-set-pronto-dengue-municipios.csv', encoding='latin-1', sep=';')
     df_data_set.rename(columns={'CONTAMINADOS': 'DENGUE'}, inplace=True)
@@ -193,39 +185,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-"""
-# obtem nomes das planilhas do xlsx
-sheet_names_casos_dengue = get_sheet_names(xlsx_casos_dengue)
-sheet_names_municipios = get_sheet_names(xlsx_municipios)
-
-lista_dfs_municipios = []
-lista_dfs_casos_dengue = []
-
-for sheet_municio in sheet_names_municipios:
-    df_municipio = BuildDf(
-        xlsx_name=xlsx_municipios,
-        sheet_name=sheet_municio,
-    )
-    df_municipio.df["indice_socioeconomico"] = sheet_municio  # adiciona o nome da planilha em todas as observacoes
-    df_municipio.get_variables()
-    dados_municipio = obtem_dados_municipio(
-        df=df_municipio.df,
-        municipio=municipio_interesse,
-        colunas=df_municipio.variables
-    )
-    lista_dfs_municipios.append(dados_municipio)
-    del df_municipio
-
-# unir todos os dataframes de municipios com suas respectivas colunas
-df_concatenado = pd.concat(lista_dfs_municipios, ignore_index=True)
-
-for sheet_municio in sheet_names_casos_dengue:
-    df_dengue = BuildDf(
-        xlsx_name=xlsx_casos_dengue,
-        sheet_name=sheet_municio,
-        skiprows=None
-    )
-    lista_dfs_casos_dengue.append(df_dengue)
-    del df_dengue
-"""
 print("Fim")
